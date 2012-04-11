@@ -1,0 +1,56 @@
+Intro
+
+    relafile.vim a utility to assist writing rapid file access shortcuts. This was
+    originally a .vimrc hack for django projects but I have expanded it to make it
+    more general purpose.
+
+Setup
+
+    1. Landmark files.
+
+    You can set up the plugin to look for when a buffers directory contains landmark file.
+
+    Eg a django 'app' would look something like this in a .vimrc
+
+    let g:relafile_landmark_files = ['models.py','views.py','templatetags','management']
+
+    OR
+
+    2. Setup Directories of interest
+
+    let g:relafile_directories_of_interest = ['/dir/1', '/dir/2', '/dir/3']
+
+    (This could easily be a script that looks at the INSTALLED_APPS section.
+    Future versions will have this example'.)
+
+    3. Add keyboard mappings.
+
+    Keyboard mappings are up to you. I've set up \ and 1-10 for the files I most commonly use.
+
+    nnoremap \1 :call relafile#getfile ("models.py",'active','edit')<cr>
+    nnoremap \2 :call relafile#getfile ("views.py",'active','edit')<cr>
+    nnoremap \3 :call relafile#getfile ("urls.py",'active','edit')<cr>
+    nnoremap \4 :call relafile#getfile ("admin.py",'active','edit')<cr>
+    nnoremap \5 :call relafile#getfile ("tests.py",'active','edit')<cr>
+    nnoremap \6 :call relafile#getfile ( "templates/" ,'active','edit')<cr>
+    nnoremap \7 :call relafile#getfile ( "templatetags/" ,'active','edit')<cr>
+    nnoremap \8 :call relafile#getfile ( "management/commands" ,'active','edit')<cr>
+    nnoremap \0 :e settings.py<cr>
+    nnoremap \9 :e urls.py<cr>
+    nnoremap \`9 :call relafile#getfile("screen.py",'active','edit')<cr>
+    nnoremap \`1 :call relafile#getfile ( "forms.py" ,'active','edit')<cr>
+    nnoremap \`2 :call relafile#getfile ( "admin_views.py" ,'active','edit')<cr>
+    nnoremap \`3 :call relafile#getfile ( "admin_urls.py" ,'active','edit')<cr>
+    nnoremap \`4 :call relafile#getfile ( "feeds.py" ,'active','edit')<cr>
+    nnoremap \`4 :call relafile#getfile ( "context.py" ,'active','edit')<cr>
+    nnoremap \`5 :call relafile#getfile ( "widgets.py" ,'active','edit')<cr>
+
+    relafile#getfile has three arguments
+        1. The file pattern you want to look for relative to the directory.
+        2. The mode, can be
+            'active' - lists any matching directories in the session.
+            'quick' - the last matching 'app' directory.
+            'all' - all directories of interest
+        3. open type. eg can be 'edit' 'vert split' 'view'... etc
+
+Note: This probably doesn't work with 'autochdir' but that setting sucks anyway :)
