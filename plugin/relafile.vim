@@ -52,7 +52,10 @@ function s:set_active_directory()
 
     for landmark in g:relafile_landmark_files
         if filereadable(expand('%:h') .'/'. landmark) || isdirectory(expand('%:h') .'/'. landmark )
-            let s:active_directories = add(s:active_directories,dir)
+            if (index(s:active_directories, dir) == -1)
+                let s:active_directories = add(s:active_directories,dir)
+            endif
+
             let s:last_active_directory = dir
         endif
     endfor
@@ -105,7 +108,7 @@ function relafile#getfile(pattern,mode,command)
         endif
     endif
 
-    echo "can't determine relative file." .s:last_active_directory
+    echo "can't determine relative file. " .s:last_active_directory
 endfunction
 
 " Autocommands {{{1
